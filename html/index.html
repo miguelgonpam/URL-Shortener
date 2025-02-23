@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>URL-SHORTENER</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <h1 class="title">URL SHORTENER</h1>
+        <div class="card shadow">
+                <div class="container">
+                    <span class="prefix" style="height: min-content;">http://</span>
+                    <input class="myinput-link" id="text-getter" placeholder="Site.com" />
+                    <span class="link-icon">
+                        <span class="tooltip">COPY</span>
+                    </span>
+                </div>
+                <div class="buttondiv">
+                    <button class="button" id="shorten-button" type="submit"> <span class="button-content">Shorten</span></button>
+                </div>
+        </div>
+
+        <!--Script que se activa al darle al botón-->
+        <script>
+            document.getElementById('shorten-button').addEventListener('click', function() {
+                // Obtener el texto del input
+                const url = document.getElementById('text-getter').value;
+    
+                // Validar si el input no está vacío
+                if (!url) {
+                    alert("Por favor, ingresa una URL válida.");
+                    return;
+                }
+    
+                // Crear el objeto con los datos que se enviarán en el POST
+                const data = { url: url };
+    
+                // Realizar la solicitud POST al backend
+                fetch('http://192.168.1.80:8080/shorten', { //cambiar por el dominio
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                })
+                .then(response => response.json()) // Suponiendo que el backend responde con JSON
+                .then(data => {
+                    // Si el backend responde con la URL acortada, hacer algo con la respuesta
+                    console.log('Éxito:', data);
+                    alert(`¡URL acortada! Tu enlace es: 192.168.1.80/shorten/${data.shorturl}`);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert('Hubo un error al intentar acortar la URL.');
+                });
+            });
+        </script>
+
+
+
+        <!--Script que se activa tras haber sido redirigido por un 404-->
+        <script>
+            // Comprobar si la URL contiene una ruta que no sea la raíz
+            if (window.location.pathname !== '/') {
+                // Redirigir a la raíz ('/')
+                window.history.replaceState(null, null, '/');
+                
+                // Mostrar el mensaje de alerta
+                alert("La página especificada no existe.");
+            }
+        </script>
+        
+    </body>
+
+</html>

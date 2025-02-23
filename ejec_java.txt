@@ -1,0 +1,1 @@
+/usr/bin/env /usr/lib/jvm/jdk-21.0.6/bin/java @/tmp/cp_60c5esv9w92tbq9q35cstepix.argfile com.urlshortener.urlshortener.UrlshortenerApplication
