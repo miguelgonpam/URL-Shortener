@@ -3,9 +3,9 @@
 ## Descripción y Alcance
 URL-SHORTENER es un proyecto de Backend implementado con Java Spring Boot cuyo propósito es ganar habilidad y experiencia trabajando con estas herramientas, para poder llegar a ser Desarrolladores de Backend. 
 Los programadores de este proyecto son:
--Miguel González Pampliega
--Diego Arbeloa Pérez
--Guillermo Arce Gómez
+* Miguel González Pampliega
+* Diego Arbeloa Pérez
+* Guillermo Arce Gómez
 
 
 ## Preparación
