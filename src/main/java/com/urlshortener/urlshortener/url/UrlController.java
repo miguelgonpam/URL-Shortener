@@ -25,22 +25,16 @@ public class UrlController{
 
     @PostMapping("/shorten")
     public ResponseEntity<Url> addUrl(@RequestBody RequestedUrl url){
-        //cambiar Url url por string url y luego crear el objeto Url para guardarlo
         Url uurl = new Url();
-        //System.out.println(url);
-
         String fullUrl = url.getUrl();
         if (!fullUrl.startsWith("http://") && !fullUrl.startsWith("https://")) {
-            fullUrl = "http://" + fullUrl; // Si no tiene, agregamos "http://"
+            fullUrl = "http://" + fullUrl; 
         }
-
-
         uurl.setUrl(fullUrl);
         uurl.setAccess_count(0);
         uurl.setCreated_at(new Timestamp(System.currentTimeMillis()));
         uurl.setUpdated_at(new Timestamp(System.currentTimeMillis()));
         Url createdUrl = urlService.addUrl(uurl);
-        //System.out.println(createdUrl.toString());
         return new ResponseEntity<>(createdUrl, HttpStatus.CREATED);
     }
 
@@ -56,23 +50,15 @@ public class UrlController{
             + "<script>window.location.href = \""+url.getUrl()+"\"</script>"
             + "</body>"
             + "</html>";
-
-            // Retornar el script con el tipo de contenido 'application/javascript'
             return ResponseEntity.ok().contentType(MediaType.valueOf("text/html")).body(html);
-
-            //return new ResponseEntity<Url>(url, HttpStatus.OK); //
         }else{
-            //cambiar ip por dominio
             String html = "<html>"
             +"<body>"
             +"<script>window.location.href = \"http://192.168.1.80/\";setTimeout(function() {alert(\"URL no encontrada\");, 1000);\"</script>"
             +"</body>"
-            +"</html>"
-            ;
+            +"</html>";
 
             return ResponseEntity.ok().contentType(MediaType.valueOf("text/html")).body(html);
-            //return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
         }
-
     }
 }
