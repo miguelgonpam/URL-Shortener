@@ -33,26 +33,15 @@ public class UrlService{
      * @return url coincidente o null si no encuentra ninguno.
      */
     public Url getUrlByShorturl(String shorturl){
-        //List<Url> lis = urlRepository.findAll().stream().collect(Collectors.toList()); //.filter(url -> shorturl.equals(url.getShorturl()))
-        //System.out.println(urlRepository.findAll().toArray().toString());
-        //System.out.println(lis.size());
-        /*
-         * if(lis.size() > 0)
-            return lis.getFirst();
-        else
-            return null;
-         */
         Optional<Url> url = urlRepository.findByShorturl(shorturl);
         if(url.isPresent())
             return url.get();
         else
             return null;
-        
     }
 
 
     public Url addUrl(Url url){
-        //hacer robusto
         Url u = urlRepository.save(url);
         return u;
     }
