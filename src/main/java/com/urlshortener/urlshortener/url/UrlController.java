@@ -65,7 +65,7 @@ public class UrlController{
             //cambiar ip por dominio
             String html = "<html>"
             +"<body>"
-            +"<script>window.location.href = \"192.168.1.80/\";setTimeout(function() {alert(\"URL no encontrada\");, 1000);\"</script>"
+            +"<script>window.location.href = \"http://192.168.1.80/\";setTimeout(function() {alert(\"URL no encontrada\");, 1000);\"</script>"
             +"</body>"
             +"</html>"
             ;
