@@ -5,7 +5,7 @@ drop table url;
 
 create table url(
         id integer primary key,
-		shorturl varchar(100) unique not null,
+	shorturl varchar(100) unique not null,
         url varchar(1000) not null,
         created_at timestamp(6) without time zone default CURRENT_TIMESTAMP,
     	updated_at timestamp(6) without time zone default CURRENT_TIMESTAMP,
@@ -37,7 +37,7 @@ CREATE TABLE sequence_tracker (
 INSERT INTO sequence_tracker (letter_part, number_part) VALUES ('aaa', 0);
 
 CREATE OR REPLACE FUNCTION get_next_custom_id()
-RETURNS TEXT AS 507240
+RETURNS TEXT AS $$
 DECLARE
     current_letters CHAR(3);
     current_number INT;
@@ -68,10 +68,10 @@ BEGIN
     -- Retornar el valor en formato LLLNNN
     RETURN next_letters || LPAD(next_number::TEXT, 3, '0');
 END;
-507240 LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION next_letter_combination(letters CHAR(3))
-RETURNS CHAR(3) AS 507240
+RETURNS CHAR(3) AS $$
 DECLARE
     new_letters CHAR(3);
     letter1 CHAR;
@@ -99,7 +99,7 @@ BEGIN
     new_letters := letter1 || letter2 || letter3;
     RETURN new_letters;
 END;
-507240 LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql;
 
 alter table url alter column shorturl set default  get_next_custom_id();
 
